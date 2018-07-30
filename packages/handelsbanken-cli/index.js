@@ -1,4 +1,4 @@
-const clientCreator = require('handelsbanken-api');
+const shbPackage = require('handelsbanken-api');
 const publicIp = require('public-ip');
 const inquirer = require('inquirer');
 
@@ -16,11 +16,11 @@ const doit = async () => {
     },
   ]);
 
-  const client = clientCreator(clientId);
+  const shb = shbPackage(clientId);
 
   const ip = await publicIp.v4();
 
-  const accounts = await client.accounts.list({
+  const accounts = await shb.accounts.list({
     authorization,
     psuIpAddress: ip,
     tppRequestId: 'asd',
@@ -39,7 +39,7 @@ const doit = async () => {
     }),
   }]);
 
-  const account = await client.accounts.reterive({
+  const account = await shb.accounts.reterive({
     authorization,
     psuIpAddress: ip,
     tppRequestId: 'asd',

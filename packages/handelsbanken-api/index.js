@@ -1,18 +1,10 @@
 const https = require('https');
 
-const clientCreator = (
+const shbCreator = (
   clientId,
   host = 'sandbox.handelsbanken.com',
 ) => {
-  const createHeaders = (headers = {}) => {
-    return {
-      'X-IBM-Client-Id': clientId,
-      'accept': 'application/json',
-      ...headers,
-    };
-  };
-
-  const get = async (options) => {
+  const _get = async (options) => {
     return new Promise((resovle, reject) => {
       let data = '';
 
@@ -48,7 +40,15 @@ const clientCreator = (
   };
 
 
-  const client = {};
+  const _createHeaders = (headers = {}) => {
+    return {
+      'X-IBM-Client-Id': clientId,
+      'accept': 'application/json',
+      ...headers,
+    };
+  };
+
+  const shb = {};
 
   const accounts = {};
   accounts.list = async ({
@@ -57,10 +57,10 @@ const clientCreator = (
     tppTransactionId,
     tppRequestId,
   }) => {
-    const data = await get({
+    const data = await _get({
       path: '/openbanking/psd2/v1/accounts',
 
-      headers: createHeaders({
+      headers: _createHeaders({
         'Authorization': authorization,
         'TPP-Transaction-ID': tppTransactionId,
         'TPP-Request-ID': tppTransactionId,
@@ -79,10 +79,10 @@ const clientCreator = (
 
     accountId,
   }) => {
-    const data = await get({
+    const data = await _get({
       path: `/openbanking/psd2/v1/accounts/${ accountId }`,
 
-      headers: createHeaders({
+      headers: _createHeaders({
         'Authorization': authorization,
         'TPP-Transaction-ID': tppTransactionId,
         'TPP-Request-ID': tppTransactionId,
@@ -101,10 +101,10 @@ const clientCreator = (
 
     accountId,
   }) => {
-    const data = await get({
+    const data = await _get({
       path: `/openbanking/psd2/v1/accounts/${ accountId }/balances`,
 
-      headers: createHeaders({
+      headers: _createHeaders({
         'Authorization': authorization,
         'TPP-Transaction-ID': tppTransactionId,
         'TPP-Request-ID': tppTransactionId,
@@ -123,10 +123,10 @@ const clientCreator = (
 
     accountId,
   }) => {
-    const data = await get({
+    const data = await _get({
       path: `/openbanking/psd2/v1/accounts/${ accountId }/transactions`,
 
-      headers: createHeaders({
+      headers: _createHeaders({
         'Authorization': authorization,
         'TPP-Transaction-ID': tppTransactionId,
         'TPP-Request-ID': tppTransactionId,
@@ -137,9 +137,9 @@ const clientCreator = (
     return data.transactions;
   };
 
-  client.accounts = accounts;
+  shb.accounts = accounts;
 
-  return Object.freeze(client);
+  return Object.freeze(shb);
 };
 
-module.exports = clientCreator;
+module.exports = shbCreator;
