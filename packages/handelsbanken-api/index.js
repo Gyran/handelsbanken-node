@@ -1,43 +1,13 @@
-const https = require('https');
+const get = require('./get');
 
 const shbCreator = (
   clientId,
   host = 'sandbox.handelsbanken.com',
 ) => {
-  const _get = async (options) => {
-    return new Promise((resovle, reject) => {
-      let data = '';
-
-      const request = https.request({
-        method: 'get',
-        port: 443,
-
-        host,
-
-        ...options,
-      }, (response) => {
-        response.on('data', (chunk) => {
-          data += chunk;
-        });
-
-        // The whole response has been received. Print out the result.
-        response.on('end', () => {
-          try {
-            const out = JSON.parse(data);
-            resovle(out);
-          } catch (error) {
-            reject(error);
-          }
-        });
-      });
-
-      request.on('error', (error) => {
-        reject(error);
-      });
-
-      request.end();
-    });
-  };
+  const _get = async (options) => get({
+    host,
+    ...options,
+  });
 
 
   const _createHeaders = (headers = {}) => {
