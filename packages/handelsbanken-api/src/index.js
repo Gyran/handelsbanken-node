@@ -1,7 +1,76 @@
+/* @flow */
 const get = require('./get');
 
-const shbCreator = (clientId, host = 'sandbox.handelsbanken.com') => {
-  const _get = async options =>
+type BaseApiOptionsType = {
+  authorization: string,
+  psuIpAddress: string,
+  tppTransactionId: string,
+  tppRequestId: string,
+};
+
+type Currency = string;
+
+type Links = {
+  balances: string,
+  transactions: string,
+};
+
+type Account = {
+  accountId: string,
+  iban: string,
+  currency: Currency,
+  accountType: string,
+  bic: string,
+  clearingNumber: string,
+  bban: string,
+  name: string,
+  _links: Links,
+};
+
+type Amount = {
+  currency: Currency,
+  content: number,
+  ledgerDate: string,
+  transactionDate: string,
+  creditDebet: string,
+  remittanceInformation: string,
+  balance: Balance,
+};
+
+type Balance = {
+  balanceType: 'booked' | 'availableAmount',
+  amount: Amount,
+};
+
+type Transaction = {
+  status: 'booked' | 'pending',
+  amount: Amount,
+};
+
+type AccountsListApiOptionsType = {
+  ...BaseApiOptionsType,
+};
+
+type AccountsReteriveOptionsType = {
+  ...BaseApiOptionsType,
+  accountId: string,
+};
+
+type AccountsReteriveBalancesOptionsType = {
+  ...BaseApiOptionsType,
+  accountId: string,
+};
+
+type AccountsReteriveTransactionsOptionsType = {
+  ...BaseApiOptionsType,
+  accountId: string,
+};
+
+const shbCreator = (
+  clientId: string,
+  host: string = 'sandbox.handelsbanken.com',
+) => {
+  const _get = async (options: {}) =>
     get({
       host,
       ...options,
@@ -18,12 +87,16 @@ const shbCreator = (clientId, host = 'sandbox.handelsbanken.com') => {
   const shb = {};
 
   const accounts = {};
+
+  type ListApiOptionsType = {
+    ...BaseApiOptionsType,
+  };
   accounts.list = async ({
     authorization,
     psuIpAddress,
     tppTransactionId,
     tppRequestId,
-  }) => {
+  }: ListApiOptionsType): Promise<Account[]> => {
     const data = await _get({
       path: '/openbanking/psd2/v1/accounts',
 
@@ -45,7 +118,7 @@ const shbCreator = (clientId, host = 'sandbox.handelsbanken.com') => {
     tppRequestId,
 
     accountId,
-  }) => {
+  }: AccountsReteriveOptionsType): Promise<Account> => {
     const data = await _get({
       path: `/openbanking/psd2/v1/accounts/${accountId}`,
 
@@ -67,7 +140,7 @@ const shbCreator = (clientId, host = 'sandbox.handelsbanken.com') => {
     tppRequestId,
 
     accountId,
-  }) => {
+  }: AccountsReteriveBalancesOptionsType): Promise<Balance[]> => {
     const data = await _get({
       path: `/openbanking/psd2/v1/accounts/${accountId}/balances`,
 
@@ -89,7 +162,7 @@ const shbCreator = (clientId, host = 'sandbox.handelsbanken.com') => {
     tppRequestId,
 
     accountId,
-  }) => {
+  }: AccountsReteriveTransactionsOptionsType): Promise<Transaction[]> => {
     const data = await _get({
       path: `/openbanking/psd2/v1/accounts/${accountId}/transactions`,
 

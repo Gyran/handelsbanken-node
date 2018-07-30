@@ -1,6 +1,7 @@
+/* @flow */
 const https = require('https');
 
-const get = async options => {
+const get = async (options: {}): Promise<Object> => {
   return new Promise((resovle, reject) => {
     let data = '';
 

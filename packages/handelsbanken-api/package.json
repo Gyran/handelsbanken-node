@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "main": "index.js",
   "license": "ISC",
-  "dependencies": {
+  "scripts": {
+    "build": "babel src/ -d lib/",
+    "build:watch": "babel src/ -d lib/ --watch"
   }
 }
