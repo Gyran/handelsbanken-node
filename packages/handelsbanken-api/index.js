@@ -115,6 +115,28 @@ const clientCreator = (
     return data.balances;
   };
 
+  accounts.reteriveTransactions = async ({
+    authorization,
+    psuIpAddress,
+    tppTransactionId,
+    tppRequestId,
+
+    accountId,
+  }) => {
+    const data = await get({
+      path: `/openbanking/psd2/v1/accounts/${ accountId }/transactions`,
+
+      headers: createHeaders({
+        'Authorization': authorization,
+        'TPP-Transaction-ID': tppTransactionId,
+        'TPP-Request-ID': tppTransactionId,
+        'PSU-IP-Address': psuIpAddress,
+      }),
+    });
+
+    return data.transactions;
+  };
+
   client.accounts = accounts;
 
   return Object.freeze(client);
