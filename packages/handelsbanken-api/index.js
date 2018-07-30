@@ -1,19 +1,16 @@
 const get = require('./get');
 
-const shbCreator = (
-  clientId,
-  host = 'sandbox.handelsbanken.com',
-) => {
-  const _get = async (options) => get({
-    host,
-    ...options,
-  });
-
+const shbCreator = (clientId, host = 'sandbox.handelsbanken.com') => {
+  const _get = async options =>
+    get({
+      host,
+      ...options,
+    });
 
   const _createHeaders = (headers = {}) => {
     return {
       'X-IBM-Client-Id': clientId,
-      'accept': 'application/json',
+      accept: 'application/json',
       ...headers,
     };
   };
@@ -31,7 +28,7 @@ const shbCreator = (
       path: '/openbanking/psd2/v1/accounts',
 
       headers: _createHeaders({
-        'Authorization': authorization,
+        Authorization: authorization,
         'TPP-Transaction-ID': tppTransactionId,
         'TPP-Request-ID': tppTransactionId,
         'PSU-IP-Address': psuIpAddress,
@@ -50,10 +47,10 @@ const shbCreator = (
     accountId,
   }) => {
     const data = await _get({
-      path: `/openbanking/psd2/v1/accounts/${ accountId }`,
+      path: `/openbanking/psd2/v1/accounts/${accountId}`,
 
       headers: _createHeaders({
-        'Authorization': authorization,
+        Authorization: authorization,
         'TPP-Transaction-ID': tppTransactionId,
         'TPP-Request-ID': tppTransactionId,
         'PSU-IP-Address': psuIpAddress,
@@ -72,10 +69,10 @@ const shbCreator = (
     accountId,
   }) => {
     const data = await _get({
-      path: `/openbanking/psd2/v1/accounts/${ accountId }/balances`,
+      path: `/openbanking/psd2/v1/accounts/${accountId}/balances`,
 
       headers: _createHeaders({
-        'Authorization': authorization,
+        Authorization: authorization,
         'TPP-Transaction-ID': tppTransactionId,
         'TPP-Request-ID': tppTransactionId,
         'PSU-IP-Address': psuIpAddress,
@@ -94,10 +91,10 @@ const shbCreator = (
     accountId,
   }) => {
     const data = await _get({
-      path: `/openbanking/psd2/v1/accounts/${ accountId }/transactions`,
+      path: `/openbanking/psd2/v1/accounts/${accountId}/transactions`,
 
       headers: _createHeaders({
-        'Authorization': authorization,
+        Authorization: authorization,
         'TPP-Transaction-ID': tppTransactionId,
         'TPP-Request-ID': tppTransactionId,
         'PSU-IP-Address': psuIpAddress,

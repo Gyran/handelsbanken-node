@@ -1,7 +1,8 @@
 {
   "private": true,
   "name": "handelsbanken",
-  "workspaces": [
-    "packages/*"
-  ]
+  "workspaces": ["packages/*"],
+  "devDependencies": {
+    "prettier": "1.14.0"
+  }
 }

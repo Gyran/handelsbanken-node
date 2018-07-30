@@ -27,17 +27,19 @@ const doit = async () => {
     tppTransactionId: 'cvb',
   });
 
-  const { accountId } = await inquirer.prompt([{
-    type: 'list',
-    name: 'accountId',
-    message: 'Pick an account',
-    choices: accounts.map((a) => {
-      return {
-        name: a.name,
-        value: a.accountId,
-      };
-    }),
-  }]);
+  const { accountId } = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'accountId',
+      message: 'Pick an account',
+      choices: accounts.map(a => {
+        return {
+          name: a.name,
+          value: a.accountId,
+        };
+      }),
+    },
+  ]);
 
   const account = await shb.accounts.reterive({
     authorization,
