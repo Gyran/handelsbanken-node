@@ -1,13 +1,6 @@
 /* @flow */
 const get = require('./get');
 
-type BaseApiOptionsType = {
-  authorization: string,
-  psuIpAddress: string,
-  tppTransactionId: string,
-  tppRequestId: string,
-};
-
 type Currency = string;
 
 type Links = {
@@ -45,6 +38,13 @@ type Balance = {
 type Transaction = {
   status: 'booked' | 'pending',
   amount: Amount,
+};
+
+type BaseApiOptionsType = {
+  authorization: string,
+  psuIpAddress: string,
+  tppTransactionId: string,
+  tppRequestId: string,
 };
 
 type AccountsListApiOptionsType = {
