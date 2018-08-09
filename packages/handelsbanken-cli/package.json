@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "ISC",
   "dependencies": {
-    "handelsbanken-api": "^0.0.1",
+    "handelsbanken-account-information-api": "^0.0.1",
     "inquirer": "^6.0.0",
     "ip": "^1.1.5",
     "public-ip": "^2.4.0"

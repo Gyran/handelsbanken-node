@@ -1,7 +1,7 @@
 {
-  "name": "handelsbanken-api",
+  "name": "handelsbanken-account-information-api",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "lib/index.js",
   "license": "ISC",
   "scripts": {
     "build": "babel src/ -d lib/",

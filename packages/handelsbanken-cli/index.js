@@ -1,4 +1,5 @@
-const shbPackage = require('handelsbanken-api');
+/* @flow */
+const shbPackage = require('handelsbanken-account-information-api');
 const publicIp = require('public-ip');
 const inquirer = require('inquirer');
 
